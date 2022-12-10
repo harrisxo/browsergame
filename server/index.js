@@ -12,6 +12,7 @@ const app = express();
 
 const testRoute = require("./routes/test");
 const registerRoute = require("./routes/register");
+const loginRoute = require("./routes/login");
 
 // GENERAL MIDDLEWARES
 app.use(morgan("dev"));
@@ -22,6 +23,7 @@ app.use(express.static(path.resolve(__dirname, "../client/build")));
 // PERSONAL MIDDLEWARES
 app.use("/", testRoute);
 app.use("/", registerRoute);
+app.use("/", loginRoute);
 
 // DEV
 
