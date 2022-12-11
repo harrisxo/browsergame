@@ -10,6 +10,7 @@ const testRoute = require("./routes/test");
 const registerRoute = require("./routes/register");
 const loginRoute = require("./routes/login");
 const validateRoute = require("./routes/validate");
+const rankRoute = require("./routes/rank");
 
 // GENERAL MIDDLEWARES
 app.use(morgan("dev"));
@@ -26,6 +27,7 @@ app.use("/", testRoute);
 app.use("/", registerRoute);
 app.use("/", loginRoute);
 app.use("/", validateRoute);
+app.use("/", rankRoute);
 
 // DEV
 
