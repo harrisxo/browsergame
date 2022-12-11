@@ -10,9 +10,9 @@ POST http://localhost:3002/api/v1/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "username",
-  "email": "email@example.com",
-  "password": "password123"
+  "username": "medic11",
+  "email": "medic11@example.com",
+  "password": "111111"
 }
 
 ### 
@@ -48,8 +48,8 @@ POST http://localhost:3002/api/v1/login HTTP/1.1
 Content-type: application/json
 
 {
-  "email": "email@example.com",
-  "password": "password123"
+  "username": "medic1111",
+  "password": "111111"
 }
 
 ###
