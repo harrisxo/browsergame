@@ -15,4 +15,19 @@ const findUser = async (username) => {
   return user;
 };
 
-module.exports = { findUser };
+const findAllUsers = async () => {
+  let allUsers = await User.find()
+    .then((usersFound) => {
+      if (usersFound.length <= 0) {
+        return null;
+      }
+      return usersFound;
+    })
+    .catch((err) => {
+      return "Something went wrong";
+    });
+
+  return allUsers;
+};
+
+module.exports = { findUser, findAllUsers };
