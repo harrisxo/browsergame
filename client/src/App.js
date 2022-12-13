@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect } from "react";
 import axios from "axios";
+import Router from "./router";
 
 const App = () => {
   useEffect(() => {
@@ -16,7 +17,8 @@ const App = () => {
 
   return (
     <div>
-      <h1>TEST</h1>
+      {/* <h1>TEST</h1> */}
+      <Router />
     </div>
   );
 };
