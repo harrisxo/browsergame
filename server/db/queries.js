@@ -30,4 +30,14 @@ const findAllUsers = async () => {
   return allUsers;
 };
 
-module.exports = { findUser, findAllUsers };
+const saveUser = async (user) => {
+  await user.save((err, update) => {
+    if (err)
+      return res
+        .status(500)
+        .json({ message: "Something went wrong updating the user" });
+    return res.status(200).json({ data: update });
+  });
+};
+
+module.exports = { findUser, findAllUsers, saveUser };
