@@ -71,3 +71,36 @@ GET http://localhost:3002/api/v1/rank HTTP/1.1
 Content-Type: application/json
 
 ###
+
+# ATTACK SUCCESS
+PATCH http://localhost:3002/api/v1/users/medic1111/attack/5 HTTP/1.1
+Content-Type: application/json
+
+{
+  "units": [
+  {
+        "hero_type": "warrior",
+        "attack": 5,
+        "available": 3,
+        "selected": 1
+      },
+      {
+        "hero_type": "vicking",
+        "attack": 10,
+        "available": 2,
+        "selected": 1
+      },
+      {
+        "hero_type": "magician",
+        "attack": 15,
+        "available": 2,
+        "selected": 1
+      },
+      {
+        "hero_type": "prince",
+        "attack": 20,
+        "available": 3,
+        "selected": 1
+      }
+    ]
+}

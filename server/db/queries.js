@@ -30,12 +30,13 @@ const findAllUsers = async () => {
   return allUsers;
 };
 
-const saveUser = async (user) => {
+const saveUser = async (user, res) => {
   await user.save((err, update) => {
-    if (err)
+    if (err) {
       return res
         .status(500)
         .json({ message: "Something went wrong updating the user" });
+    }
     return res.status(200).json({ data: update });
   });
 };

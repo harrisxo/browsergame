@@ -12,48 +12,54 @@ const generateNewMap = () => {
   return newMap;
 };
 
-const attackControl = (req, res) => {
+const attackControl = async (req, res) => {
   const { username, blockID } = req.params;
   const unitsReq = req.body.units;
 
-  const user = findUser(username);
-  console.log(user);
+  const user = await findUser(username);
+
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
 
   const totalAttack = unitsReq.reduce((acc, unit) => {
-    return acc + unit.attack * unit.selected;
-  });
+    return acc + unit.selected * unit.attack;
+  }, 0);
 
-  const currentBlock = user.current_map.filter((block) => block.id === blockID);
+  const currentBlock = user.current_map.filter(
+    (block) => block.id == blockID
+  )[0];
+
   const currentBlockHP = currentBlock.hp;
 
   if (totalAttack < currentBlockHP) {
-    user.units.forEach((unit) => {
-      unitsReq.forEach((unitReq) => {
-        if (unit.hero_type === unitReq.hero_type) {
-          unit.available -= unitReq.selected;
+    const subtractUnits = (units, selectedUnits) => {
+      return units.map((unit) => {
+        const selectedUnit = selectedUnits.filter(
+          (selected) => selected.hero_type === unit.hero_type
+        )[0];
+        if (selectedUnit) {
+          unit.available -= selectedUnit.selected;
         }
+        return unit;
       });
-    });
-
-    saveUser(user);
+    };
+    user.units = subtractUnits(user.units, unitsReq);
+    await saveUser(user, res);
+    return;
   }
-  if (blockID % 16 === 0) {
+  if (blockID === 16) {
     user.current_map = generateNewMap();
     user.level += 1;
   }
 
-  saveUser(user);
+  saveUser(user, res);
 };
 
 module.exports = { attackControl };
 
 /* 
 req.body = {
-  username: string,
-  blockID: number, , (if blockID%16 == 0 => levels up and generate new map)
   units: [
     {
       hero_type: string,
