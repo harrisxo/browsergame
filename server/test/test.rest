@@ -81,26 +81,26 @@ Content-Type: application/json
   {
         "hero_type": "warrior",
         "attack": 5,
-        "available": 3,
-        "selected": 1
+        "available": 4,
+        "battling": 1
       },
       {
         "hero_type": "vicking",
         "attack": 10,
         "available": 2,
-        "selected": 1
+        "battling": 1
       },
       {
         "hero_type": "magician",
         "attack": 15,
         "available": 2,
-        "selected": 1
+        "battling": 1
       },
       {
         "hero_type": "prince",
         "attack": 20,
         "available": 3,
-        "selected": 1
+        "battling": 1
       }
     ]
 }

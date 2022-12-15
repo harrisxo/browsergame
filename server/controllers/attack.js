@@ -23,7 +23,7 @@ const attackControl = async (req, res) => {
   }
 
   const totalAttack = unitsReq.reduce((acc, unit) => {
-    return acc + unit.selected * unit.attack;
+    return acc + unit.battling * unit.attack;
   }, 0);
 
   const currentBlock = user.current_map.filter(
@@ -33,13 +33,13 @@ const attackControl = async (req, res) => {
   const currentBlockHP = currentBlock.hp;
 
   if (totalAttack < currentBlockHP) {
-    const subtractUnits = (units, selectedUnits) => {
+    const subtractUnits = (units, battlingUnits) => {
       return units.map((unit) => {
-        const selectedUnit = selectedUnits.filter(
-          (selected) => selected.hero_type === unit.hero_type
+        const battlingUnit = battlingUnits.filter(
+          (battling) => battling.hero_type === unit.hero_type
         )[0];
-        if (selectedUnit) {
-          unit.available -= selectedUnit.selected;
+        if (battlingUnit) {
+          unit.available -= battlingUnit.battling;
         }
         return unit;
       });
