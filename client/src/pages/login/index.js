@@ -24,6 +24,7 @@ const Login = () => {
       .then((res) => {
         setIsAuthenticated(true);
         setAuthenticatedUser(res.data);
+        localStorage.setItem("JWT Token", res.data.token);
         console.log("User authenticated!");
         console.log(res.data);
       })
