@@ -1,7 +1,7 @@
-import { MapContainer, MapBlock } from "./index.styles";
+import { MapContainer, MapBlock } from "./map.styles";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import UnitsMenu from "../units-menu/index";
+import UnitsMenu from "../units-menu/units-menu.component";
 
 const Map = () => {
   const [user, setUser] = useState(null);
@@ -28,23 +28,21 @@ const Map = () => {
   };
   console.log(user);
   return (
-    <>
-      <MapContainer>
-        {user &&
-          user.current_map.map((block, index) => {
-            return (
-              <MapBlock
-                key={index}
-                blockOccupied={block.occupied}
-                onClick={() => handleSelectBlock(index + 1)}
-              >
-                <p>{block.id}</p>
-              </MapBlock>
-            );
-          })}
-      </MapContainer>
+    <MapContainer>
+      {user &&
+        user.current_map.map((block, index) => {
+          return (
+            <MapBlock
+              key={index}
+              blockOccupied={block.occupied}
+              onClick={() => handleSelectBlock(index + 1)}
+            >
+              <p>{block.id}</p>
+            </MapBlock>
+          );
+        })}
       {isBlockSelected && <UnitsMenu units={user.units} />}
-    </>
+    </MapContainer>
   );
 };
 

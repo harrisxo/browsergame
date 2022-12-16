@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MapContainer = styled.div`
   scale: 1;
-  width: 40vw;
+  width: 60vh;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
