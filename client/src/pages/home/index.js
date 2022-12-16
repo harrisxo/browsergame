@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Map from "../map/index";
 
 function Home() {
@@ -6,6 +6,8 @@ function Home() {
     <div>
       <h1>This is the home page.</h1>
       <Map />
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
     </div>
   );
 }

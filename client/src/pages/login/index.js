@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { Context } from "../../contexts/user-context";
 
 const Login = () => {
+  const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
   const [user, setUser] = useState({ username: "", password: "" });
-  const [authenticatedUser, setAuthenticatedUser] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState("");
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,11 +24,12 @@ const Login = () => {
       .then((res) => {
         setIsAuthenticated(true);
         setAuthenticatedUser(res.data);
+        localStorage.setItem("JWT Token", res.data.token);
         console.log("User authenticated!");
         console.log(res.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(({ response }) => {
+        setError(`Error ${response.status}: ${response.data.message}`);
       });
   };
 
@@ -63,6 +65,7 @@ const Login = () => {
           <input type="submit" value="Submit" />
         </ul>
       </form>
+      {error}
     </div>
   );
 };
