@@ -2,70 +2,83 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
 
-function Register() {
-  const { setIsLoggedIn, setUsername } = useContext(Context);
-  const [formValue, setFormValue] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState({});
+const Register = () => {
+  const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
+  const [user, setUser] = useState({ username: "", email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("/api/v1/register/", formValue)
-      .then(({ data }) => {
-        console.log({ data });
-        setUsername(data.user.username);
-        localStorage.setItem("JWT Token", data.token);
-      })
-      .catch((err) => setError(err));
-    setError("");
-    setIsLoggedIn(true);
+  const onInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser((previousValue) => {
+      return {
+        ...previousValue,
+        [name]: value,
+      };
+    });
   };
 
-  const handleChange = (e) => {
-    setFormValue({
-      ...formValue,
-      [e.target.name]: e.target.value,
-    });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await axios
+      .post("/api/v1/register", user)
+      .then((res) => {
+        setIsAuthenticated(true);
+        setAuthenticatedUser(res.data);
+        console.log("User authenticated!");
+        console.log(res.data);
+      })
+      .catch(({ response }) => {
+        setError(`Error ${response.status}: ${response.data.message}`);
+      });
   };
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>This is the Register page.</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={formValue.username}
-          name="username"
-          placeholder="username"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          value={formValue.email}
-          name="email"
-          placeholder="email"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          value={formValue.password}
-          name="password"
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <button>Submit</button>
+        <ul>
+          <li>
+            <label for="username"> Username: </label>
+            <input
+              type="text"
+              id="username"
+              value={user.username}
+              name="username"
+              onChange={(event) => {
+                onInputChange(event);
+              }}
+            />
+          </li>
+          <li>
+            <label for="username"> Email: </label>
+            <input
+              type="text"
+              id="email"
+              value={user.email}
+              name="email"
+              onChange={(event) => {
+                onInputChange(event);
+              }}
+            />
+          </li>
+          <li>
+            <label for="password"> Password: </label>
+            <input
+              type="password"
+              id="password"
+              value={user.password}
+              name="password"
+              onChange={(event) => {
+                onInputChange(event);
+              }}
+            />
+          </li>
+          <input type="submit" value="Submit" />
+        </ul>
       </form>
-      {Object.keys(error).length >= 1 && (
-        <div>
-          {error.message}: {error.response.data.message}
-        </div>
-      )}
+      {error}
     </div>
   );
-}
+};
 
 export default Register;
