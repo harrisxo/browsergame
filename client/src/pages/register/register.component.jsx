@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
 
-const Login = () => {
+const Register = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
-  const [user, setUser] = useState({ username: "", password: "" });
+  const [user, setUser] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
 
   const onInputChange = (event) => {
@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post("/api/v1/login", user)
+      .post("/api/v1/register", user)
       .then((res) => {
         setIsAuthenticated(true);
         setAuthenticatedUser(res.data);
@@ -35,11 +35,11 @@ const Login = () => {
 
   return (
     <div>
-      <h1>This is the login page.</h1>
+      <h1>This is the Register page.</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           <li>
-            <label for="username"> Username: </label>
+            <label htmlFor="username"> Username: </label>
             <input
               type="text"
               id="username"
@@ -51,7 +51,19 @@ const Login = () => {
             />
           </li>
           <li>
-            <label for="password"> Password: </label>
+            <label htmlFor="username"> Email: </label>
+            <input
+              type="text"
+              id="email"
+              value={user.email}
+              name="email"
+              onChange={(event) => {
+                onInputChange(event);
+              }}
+            />
+          </li>
+          <li>
+            <label htmlFor="password"> Password: </label>
             <input
               type="password"
               id="password"
@@ -65,9 +77,10 @@ const Login = () => {
           <input type="submit" value="Submit" />
         </ul>
       </form>
+      <a href="/login">Login</a>
       {error}
     </div>
   );
 };
 
-export default Login;
+export default Register;

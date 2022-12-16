@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
 
-const Register = () => {
+const Login = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
-  const [user, setUser] = useState({ username: "", email: "", password: "" });
+  const [user, setUser] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
   const onInputChange = (event) => {
@@ -20,7 +20,7 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post("/api/v1/register", user)
+      .post("/api/v1/login", user)
       .then((res) => {
         setIsAuthenticated(true);
         setAuthenticatedUser(res.data);
@@ -35,11 +35,11 @@ const Register = () => {
 
   return (
     <div>
-      <h1>This is the Register page.</h1>
+      <h1>This is the login page.</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           <li>
-            <label for="username"> Username: </label>
+            <label htmlFor="username"> Username: </label>
             <input
               type="text"
               id="username"
@@ -51,19 +51,7 @@ const Register = () => {
             />
           </li>
           <li>
-            <label for="username"> Email: </label>
-            <input
-              type="text"
-              id="email"
-              value={user.email}
-              name="email"
-              onChange={(event) => {
-                onInputChange(event);
-              }}
-            />
-          </li>
-          <li>
-            <label for="password"> Password: </label>
+            <label htmlFor="password"> Password: </label>
             <input
               type="password"
               id="password"
@@ -77,9 +65,10 @@ const Register = () => {
           <input type="submit" value="Submit" />
         </ul>
       </form>
+      <a href="/register">Register</a>
       {error}
     </div>
   );
 };
 
-export default Register;
+export default Login;
