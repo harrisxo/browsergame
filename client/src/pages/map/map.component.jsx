@@ -41,7 +41,9 @@ const Map = () => {
             </MapBlock>
           );
         })}
-      {isBlockSelected && <UnitsMenu units={user.units} />}
+      {isBlockSelected && (
+        <UnitsMenu units={user.units} blockSelected={blockSelected} />
+      )}
     </MapContainer>
   );
 };
