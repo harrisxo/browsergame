@@ -30,19 +30,20 @@ const attackControl = async (req, res) => {
     (block) => block.id == blockID
   )[0];
 
-  console.log(currentBlock);
-
   const altCurrentBlock = user.current_map[Number(blockID) - 1];
-
-  console.log(altCurrentBlock);
 
   const currentBlockHP = currentBlock.hp;
 
   if (totalAttack > currentBlockHP) {
     console.log("Player wins block");
-    currentBlock.occupied = true;
-    user.units.map((hero) => hero.available++);
-    return saveUser(user, res);
+    user.current_map[Number(blockID) - 1].occupied = true;
+    let update = user.units;
+    await update.forEach((hero) => {
+      return hero.available++;
+    });
+    console.log(update);
+    user.units = update;
+    return await saveUser(user, res);
   }
 
   if (totalAttack <= currentBlockHP) {
