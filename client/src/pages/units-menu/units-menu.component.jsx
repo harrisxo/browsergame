@@ -9,7 +9,6 @@ const UnitsMenu = ({ units, blockSelected }) => {
   const attackHandler = async (e) => {
     e.preventDefault();
     // selectedUnits.map((obj) => (obj.available -= obj.battling));
-    console.log(selectedUnits);
     await axios
       .patch(
         `/api/v1/users/${userMgr.authenticatedUser.user.username}/attack/${blockSelected}`,
@@ -17,10 +16,10 @@ const UnitsMenu = ({ units, blockSelected }) => {
       )
       .then((serverRes) => {
         console.log(serverRes.data);
-        // ADDRESS ON SERVER SO HASH FOR PASSWORD IS NOT
-        // INCLUDED IN THE RESPONSE
-        serverRes.data.password = "SECRET";
-        userMgr.setAuthenticatedUser(serverRes.data);
+
+        userMgr.setAuthenticatedUser((prev) => {
+          return { ...prev, user: serverRes.data.data };
+        });
       })
       .catch((err) => console.log(err));
   };

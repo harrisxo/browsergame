@@ -37,6 +37,7 @@ const saveUser = async (user, res) => {
         .status(500)
         .json({ message: "Something went wrong updating the user" });
     }
+    update.password = "SECRET";
     return res.status(200).json({ data: update });
   });
 };
