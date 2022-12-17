@@ -38,7 +38,14 @@ const attackControl = async (req, res) => {
 
   const currentBlockHP = currentBlock.hp;
 
-  if (totalAttack < currentBlockHP) {
+  if (totalAttack > currentBlockHP) {
+    console.log("Player wins block");
+    currentBlock.occupied = true;
+    user.units.map((hero) => hero.available++);
+    return saveUser(user, res);
+  }
+
+  if (totalAttack <= currentBlockHP) {
     const subtractUnits = (units, battlingUnits) => {
       return units.map((unit) => {
         const battlingUnit = battlingUnits.filter(
