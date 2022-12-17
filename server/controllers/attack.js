@@ -30,6 +30,12 @@ const attackControl = async (req, res) => {
     (block) => block.id == blockID
   )[0];
 
+  console.log(currentBlock);
+
+  const altCurrentBlock = user.current_map[Number(blockID) - 1];
+
+  console.log(altCurrentBlock);
+
   const currentBlockHP = currentBlock.hp;
 
   if (totalAttack < currentBlockHP) {

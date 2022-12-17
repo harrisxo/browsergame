@@ -1,6 +1,11 @@
 import { createContext, useState } from "react";
 
-export const Context = createContext({});
+export const Context = createContext({
+  isAuthenticated: false,
+  setIsAuthenticated: () => {},
+  authenticatedUser: "",
+  setAuthenticatedUser: () => {},
+});
 
 export default function UserProvider(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

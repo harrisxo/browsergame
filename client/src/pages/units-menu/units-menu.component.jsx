@@ -1,8 +1,29 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { UnitsMenuContainer, Unit } from "./units-menu.styles";
-
-const UnitsMenu = ({ units }) => {
+import axios from "axios";
+import { Context } from "../../contexts/user-context";
+const UnitsMenu = ({ units, blockSelected }) => {
+  const userMgr = useContext(Context);
   const [selectedUnits, setSelectedUnits] = useState(units);
+
+  const attackHandler = async (e) => {
+    e.preventDefault();
+    // selectedUnits.map((obj) => (obj.available -= obj.battling));
+    console.log(selectedUnits);
+    await axios
+      .patch(
+        `/api/v1/users/${userMgr.authenticatedUser.user.username}/attack/${blockSelected}`,
+        { units: selectedUnits }
+      )
+      .then((serverRes) => {
+        console.log(serverRes.data);
+        // ADDRESS ON SERVER SO HASH FOR PASSWORD IS NOT
+        // INCLUDED IN THE RESPONSE
+        serverRes.data.password = "SECRET";
+        userMgr.setAuthenticatedUser(serverRes.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const handleSelectedUnitsChange = (
     unitIndex,
@@ -53,6 +74,9 @@ const UnitsMenu = ({ units }) => {
           </Unit>
         );
       })}
+      <form onSubmit={attackHandler}>
+        <input type={"submit"} />
+      </form>
     </UnitsMenuContainer>
   );
 };
