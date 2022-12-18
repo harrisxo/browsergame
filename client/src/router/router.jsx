@@ -20,6 +20,7 @@ function Router() {
   const RequiredAuth = ({ children }) => {
     return isAuthenticated ? children : <Login />;
   };
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />

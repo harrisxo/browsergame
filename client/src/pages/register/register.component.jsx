@@ -25,8 +25,6 @@ const Register = () => {
         setIsAuthenticated(true);
         setAuthenticatedUser(res.data);
         localStorage.setItem("JWT Token", res.data.token);
-        console.log("User authenticated!");
-        console.log(res.data);
       })
       .catch(({ response }) => {
         setError(`Error ${response.status}: ${response.data.message}`);
