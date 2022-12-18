@@ -26,23 +26,34 @@ const attackControl = async (req, res) => {
     return acc + unit.battling * unit.attack;
   }, 0);
 
-  const currentBlock = user.current_map.filter(
-    (block) => block.id == blockID
-  )[0];
+  // const currentBlock = user.current_map.filter(
+  //   (block) => block.id == blockID
+  // )[0];
 
-  const altCurrentBlock = user.current_map[Number(blockID) - 1];
+  const blocksOccupied = user.current_map.reduce((acc, block) => {
+    return block.occupied === true ? acc + 1 : acc;
+  }, 0);
+
+  console.log(user.current_map);
+  const currentBlock = user.current_map[Number(blockID) - 1];
 
   const currentBlockHP = currentBlock.hp;
 
+  console.log(blocksOccupied);
   if (totalAttack > currentBlockHP) {
     console.log("Player wins block");
-    user.current_map[Number(blockID) - 1].occupied = true;
+    currentBlock.occupied = true;
     let update = user.units;
     await update.forEach((hero) => {
       return hero.available++;
     });
     console.log(update);
     user.units = update;
+    if (blocksOccupied.length === 15) {
+      console.log("Player wins game");
+      user.current_map = generateNewMap();
+      user.level += 1;
+    }
     return await saveUser(user, res);
   }
 
@@ -59,15 +70,8 @@ const attackControl = async (req, res) => {
       });
     };
     user.units = subtractUnits(user.units, unitsReq);
-    await saveUser(user, res);
-    return;
+    return await saveUser(user, res);
   }
-  if (blockID === 16) {
-    user.current_map = generateNewMap();
-    user.level += 1;
-  }
-
-  saveUser(user, res);
 };
 
 module.exports = { attackControl };
