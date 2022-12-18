@@ -30,7 +30,7 @@ const findAllUsers = async () => {
   return allUsers;
 };
 
-const saveUser = async (user, res) => {
+const saveUser = async (user, res, message) => {
   let newUser = new User(user);
   await newUser.save((err, update) => {
     console.log(user);
@@ -40,7 +40,7 @@ const saveUser = async (user, res) => {
         .json({ message: "Something went wrong updating the user" });
     }
     update.password = "SECRET";
-    return res.status(200).json({ data: update });
+    return res.status(200).json({ data: update, message });
   });
 };
 

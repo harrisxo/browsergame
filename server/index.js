@@ -6,12 +6,12 @@ require("dotenv").config();
 const app = express();
 
 // PERSONAL IMPORTS
-const testRoute = require("./routes/test");
-const registerRoute = require("./routes/register");
-const loginRoute = require("./routes/login");
 const validateRoute = require("./routes/validate");
-const rankRoute = require("./routes/rank");
+const loginRoute = require("./routes/login");
+const registerRoute = require("./routes/register");
 const attackRoute = require("./routes/attack");
+const rankRoute = require("./routes/rank");
+const testRoute = require("./routes/test");
 
 // GENERAL MIDDLEWARES
 app.use(morgan("dev"));
@@ -24,12 +24,12 @@ const db_connection = require("./config/db_connect.config");
 db_connection();
 
 // PERSONAL MIDDLEWARES
-app.use("/", testRoute);
-app.use("/", registerRoute);
-app.use("/", loginRoute);
 app.use("/", validateRoute);
-app.use("/", rankRoute);
+app.use("/", loginRoute);
+app.use("/", registerRoute);
 app.use("/", attackRoute);
+app.use("/", rankRoute);
+app.use("/", testRoute);
 
 // DEV
 
