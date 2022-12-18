@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
 
-const validationControl = (req, res) => {
+const validateControl = (req, res) => {
+  console.log("adsadasdsa");
   let token = req.headers.authorization;
-
+  console.log(token);
   if (!token) {
     res.status(401).json({ message: "No token found" });
   } else {
@@ -14,4 +15,4 @@ const validationControl = (req, res) => {
   }
 };
 
-module.exports = { validationControl };
+module.exports = { validateControl };

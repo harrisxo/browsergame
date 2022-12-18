@@ -35,6 +35,7 @@ const attackControl = async (req, res) => {
   const currentBlockHP = currentBlock.hp;
 
   if (totalAttack > currentBlockHP) {
+    let message = "You won the battle";
     currentBlock.occupied = true;
     let update = user.units;
     await update.forEach((hero) => {
@@ -44,8 +45,9 @@ const attackControl = async (req, res) => {
     if (blocksOccupied >= 15) {
       user.current_map = generateNewMap(user.level);
       user.level += 1;
+      message = "You won the battle and leveled up";
     }
-    return await saveUser(user, res);
+    return await saveUser(user, res, message);
   }
 
   if (totalAttack <= currentBlockHP) {
@@ -61,7 +63,7 @@ const attackControl = async (req, res) => {
       });
     };
     user.units = subtractUnits(user.units, unitsReq);
-    return await saveUser(user, res);
+    return await saveUser(user, res, "You lost the battle");
   }
 };
 

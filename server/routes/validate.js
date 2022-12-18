@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { validationControl } = require("../controllers/validate");
+const { validateControl } = require("../controllers/validate");
 
-const validationRoute = router.get("/api/v1/validate/", validationControl);
+const validateRoute = router.get("/api/v1/validate", validateControl);
 
-module.exports = validationRoute;
+module.exports = validateRoute;

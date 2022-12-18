@@ -13,25 +13,26 @@ const Map = () => {
     setBlockSelected(blockID);
   };
   return (
-    <MapContainer>
-      {userMgr.authenticatedUser.user.current_map.map((block, index) => {
-        return (
-          <MapBlock
-            key={index}
-            blockOccupied={block.occupied}
-            onClick={() => handleSelectBlock(index + 1)}
-          >
-            <p>{block.id}</p>
-          </MapBlock>
-        );
-      })}
-      {isBlockSelected && (
-        <UnitsMenu
-          units={userMgr.authenticatedUser.user.units}
-          blockSelected={blockSelected}
-        />
-      )}
-    </MapContainer>
+    <h1>dsadas</h1>
+    // <MapContainer>
+    //   {userMgr.authenticatedUser.user.current_map.map((block, index) => {
+    //     return (
+    //       <MapBlock
+    //         key={index}
+    //         blockOccupied={block.occupied}
+    //         onClick={() => handleSelectBlock(index + 1)}
+    //       >
+    //         <p>{block.id}</p>
+    //       </MapBlock>
+    //     );
+    //   })}
+    //   {isBlockSelected && (
+    //     <UnitsMenu
+    //       units={userMgr.authenticatedUser.user.units}
+    //       blockSelected={blockSelected}
+    //     />
+    //   )}
+    // </MapContainer>
   );
 };
 
