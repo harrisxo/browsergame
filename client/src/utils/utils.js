@@ -14,19 +14,17 @@ export const storeToken = (serverRes) => {
   );
 };
 
-export const isTokenExp = async (setAuthenticatedUser, setIsAuthenticated) => {
+export const isTokenExp = async (setIsAuthenticated, setAuthenticatedUser) => {
   const storedData = localStorage.getItem("userValidation");
 
   if (typeof storedData === "string") {
     const parse = JSON.parse(storedData);
-    console.log(parse);
     if (parse && new Date(parse.expiration) > new Date()) {
       await axios
         .get(`/api/v1/${parse.username}/validate`, {
           headers: { authorization: parse.token },
         })
         .then((serverRes) => {
-          console.log(serverRes);
           setAuthenticatedUser(serverRes.data);
           return setIsAuthenticated(true);
         })

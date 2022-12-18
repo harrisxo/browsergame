@@ -1,7 +1,6 @@
 import React from "react";
 import Map from "../map/map.component";
-
-function Home() {
+const Home = () => {
   return (
     <div>
       <h1>This is the home page.</h1>
@@ -10,6 +9,6 @@ function Home() {
       <a href="/register">Register</a>
     </div>
   );
-}
+};
 
 export default Home;
