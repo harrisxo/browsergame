@@ -7,44 +7,15 @@ import Home from "./pages/home/home.component";
 import Login from "./pages/login/login.component.";
 import Register from "./pages/register/register.component";
 
-import axios from "axios";
-// import { isTokenExp } from "./utils/utils";
+import { isTokenExp } from "./utils/utils";
 const App = () => {
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated, setAuthenticatedUser } =
     useContext(Context);
 
   useEffect(() => {
-    const isTokenExp = async () => {
-      const storedData = localStorage.getItem("userValidation");
-
-      if (typeof storedData === "string") {
-        const parse = JSON.parse(storedData);
-        console.log(parse);
-        console.log(parse.token);
-
-        if (parse && new Date(parse.expiration) > new Date()) {
-          await axios
-            .get(`/api/v1/${parse.username}/validate`, {
-              headers: { authorization: parse.token },
-            })
-            .then((serverRes) => {
-              console.log(serverRes.data);
-              // setAuthenticatedUser(serverRes.data);
-              return setIsAuthenticated(true);
-            })
-            .catch((err) => {
-              console.log(err);
-              return setIsAuthenticated(false);
-            });
-        }
-      }
-    };
-
-    isTokenExp();
-  }, []);
-
-  console.log(isAuthenticated);
+    isTokenExp(setIsAuthenticated, setAuthenticatedUser);
+  }, [setIsAuthenticated, setAuthenticatedUser]);
 
   useEffect(() => {
     if (isAuthenticated) {
