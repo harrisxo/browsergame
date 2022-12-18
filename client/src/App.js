@@ -21,14 +21,16 @@ const App = () => {
       if (typeof storedData === "string") {
         const parse = JSON.parse(storedData);
         console.log(parse);
+        console.log(parse.token);
+
         if (parse && new Date(parse.expiration) > new Date()) {
           await axios
             .get(`/api/v1/${parse.username}/validate`, {
               headers: { authorization: parse.token },
             })
             .then((serverRes) => {
-              console.log(serverRes);
-              setAuthenticatedUser(serverRes.data);
+              console.log(serverRes.data);
+              // setAuthenticatedUser(serverRes.data);
               return setIsAuthenticated(true);
             })
             .catch((err) => {
@@ -42,9 +44,13 @@ const App = () => {
     isTokenExp();
   }, []);
 
+  console.log(isAuthenticated);
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");
+    } else {
+      navigate("/login");
     }
   }, [isAuthenticated, navigate]);
 
