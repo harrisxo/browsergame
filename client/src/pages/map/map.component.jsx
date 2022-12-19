@@ -31,6 +31,7 @@ const Map = () => {
             <UnitsMenu
               units={userMgr.authenticatedUser.user.units}
               blockSelected={blockSelected}
+              setIsBlockSelected={setIsBlockSelected}
             />
           )}
         </MapContainer>
