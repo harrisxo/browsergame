@@ -11,16 +11,9 @@ import { Context } from "../../contexts/user-context";
 const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
   const userMgr = useContext(Context);
   const [selectedUnits, setSelectedUnits] = useState(units);
-  const [error, setError] = useState(null);
 
   const attackHandler = async (e) => {
     e.preventDefault();
-    const errorSubmit = selectedUnits.some((unit) => unit.battling === 0);
-    if (errorSubmit) {
-      setError("Please fill all the fields");
-      return;
-    }
-    console.log("aaa");
     await axios
       .patch(
         `/api/v1/users/${userMgr.authenticatedUser.user.username}/attack/${blockSelected}`,
@@ -61,7 +54,6 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
         return unit;
       })
     );
-    console.log(selectedUnits);
   };
 
   const handleOnChange = (event, unitIndex, availableUnits) => {
@@ -103,9 +95,8 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
             </Unit>
           );
         })}
-        {error && <p>{error}</p>}
         <form onSubmit={attackHandler}>
-          <input type={"submit"} />
+          <input type={"submit"} value="Attack" />
         </form>
       </UnitsMenuContainer>
       <Backdrop onClick={() => setIsBlockSelected(false)} />

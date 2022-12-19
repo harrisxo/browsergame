@@ -13,6 +13,20 @@ export const UnitsMenuContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   z-index: 99;
+
+  input[type="submit"] {
+    font-size: 1.8rem;
+    background-color: #fafafa;
+    outline: none;
+    border: 1px solid #3f3f3f;
+    padding: 0.5rem;
+    transition: all 0.2s;
+    &:hover {
+      cursor: pointer;
+      background-color: #3f3f3f;
+      color: #fafafa;
+    }
+  }
 `;
 
 export const Unit = styled.div`

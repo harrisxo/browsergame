@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
 import { storeToken } from "../../utils/utils";
-
+import { AuthContainer } from "../login/login.styles";
 const Register = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
   const [user, setUser] = useState({ username: "", email: "", password: "" });
@@ -34,12 +34,12 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>This is the Register page.</h1>
+    <AuthContainer>
+      <h1>Create an account</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           <li>
-            <label htmlFor="username"> Username: </label>
+            <label htmlFor="username"> Username </label>
             <input
               type="text"
               id="username"
@@ -51,7 +51,7 @@ const Register = () => {
             />
           </li>
           <li>
-            <label htmlFor="username"> Email: </label>
+            <label htmlFor="username"> Email </label>
             <input
               type="text"
               id="email"
@@ -63,7 +63,7 @@ const Register = () => {
             />
           </li>
           <li>
-            <label htmlFor="password"> Password: </label>
+            <label htmlFor="password"> Password </label>
             <input
               type="password"
               id="password"
@@ -74,12 +74,12 @@ const Register = () => {
               }}
             />
           </li>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Sign up" />
         </ul>
       </form>
       <a href="/login">Login</a>
       {error}
-    </div>
+    </AuthContainer>
   );
 };
 

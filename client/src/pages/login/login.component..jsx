@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
 import { storeToken } from "../../utils/utils";
+import { AuthContainer } from "./login.styles";
 
 const Login = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
@@ -36,12 +37,12 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>This is the login page.</h1>
+    <AuthContainer>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           <li>
-            <label htmlFor="username"> Username: </label>
+            <label htmlFor="username"> Username </label>
             <input
               type="text"
               id="username"
@@ -53,7 +54,7 @@ const Login = () => {
             />
           </li>
           <li>
-            <label htmlFor="password"> Password: </label>
+            <label htmlFor="password"> Password </label>
             <input
               type="password"
               id="password"
@@ -64,12 +65,12 @@ const Login = () => {
               }}
             />
           </li>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Login" />
         </ul>
       </form>
-      <a href="/register">Register</a>
+      <a href="/register">Create an account</a>
       {error}
-    </div>
+    </AuthContainer>
   );
 };
 
