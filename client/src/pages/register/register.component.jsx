@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
+import { storeToken } from "../../utils/utils";
 
 const Register = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
@@ -22,11 +23,10 @@ const Register = () => {
     await axios
       .post("/api/v1/register", user)
       .then((res) => {
-        setIsAuthenticated(true);
         setAuthenticatedUser(res.data);
-        localStorage.setItem("JWT Token", res.data.token);
-        console.log("User authenticated!");
-        console.log(res.data);
+        storeToken(res);
+        setIsAuthenticated(true);
+        // localStorage.setItem("JWT Token", res.data.token);
       })
       .catch(({ response }) => {
         setError(`Error ${response.status}: ${response.data.message}`);

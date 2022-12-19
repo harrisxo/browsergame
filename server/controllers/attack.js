@@ -1,12 +1,12 @@
 const { findUser, saveUser } = require("../db/queries");
 
-const generateNewMap = () => {
+const generateNewMap = (level) => {
   let newMap = [];
   for (let i = 1; i <= 16; i++) {
     newMap.push({
       id: i,
-      occupied: false,
-      hp: Math.floor(Math.random() * 100) + 1,
+      occupied: i === 1 ? true : false,
+      hp: (Math.floor(Math.random() * 100) + 1) * level,
     });
   }
   return newMap;
@@ -26,24 +26,28 @@ const attackControl = async (req, res) => {
     return acc + unit.battling * unit.attack;
   }, 0);
 
-  const currentBlock = user.current_map.filter(
-    (block) => block.id == blockID
-  )[0];
+  const blocksOccupied = user.current_map.reduce((acc, block) => {
+    return block.occupied === true ? acc + 1 : acc;
+  }, 0);
 
-  const altCurrentBlock = user.current_map[Number(blockID) - 1];
+  const currentBlock = user.current_map[Number(blockID) - 1];
 
   const currentBlockHP = currentBlock.hp;
 
   if (totalAttack > currentBlockHP) {
-    console.log("Player wins block");
-    user.current_map[Number(blockID) - 1].occupied = true;
+    let message = "You won the battle";
+    currentBlock.occupied = true;
     let update = user.units;
     await update.forEach((hero) => {
       return hero.available++;
     });
-    console.log(update);
     user.units = update;
-    return await saveUser(user, res);
+    if (blocksOccupied >= 15) {
+      user.current_map = generateNewMap(user.level);
+      user.level += 1;
+      message = "You won the battle and leveled up";
+    }
+    return await saveUser(user, res, message);
   }
 
   if (totalAttack <= currentBlockHP) {
@@ -59,27 +63,8 @@ const attackControl = async (req, res) => {
       });
     };
     user.units = subtractUnits(user.units, unitsReq);
-    await saveUser(user, res);
-    return;
+    return await saveUser(user, res, "You lost the battle");
   }
-  if (blockID === 16) {
-    user.current_map = generateNewMap();
-    user.level += 1;
-  }
-
-  saveUser(user, res);
 };
 
 module.exports = { attackControl };
-
-/* 
-req.body = {
-  units: [
-    {
-      hero_type: string,
-      unitsSelected: number,
-      attack: number,
-    },
-  ],
-};
-*/

@@ -15,7 +15,7 @@ const rankControl = async (req, res) => {
         level: user.level,
       };
     })
-    .sort((a, b) => a.level - b.level);
+    .sort((a, b) => b.level - a.level);
   res.status(200).json({
     data: sortedUsers,
   });
