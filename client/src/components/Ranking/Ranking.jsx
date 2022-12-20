@@ -25,7 +25,7 @@ const Ranking = ({ setShowRanking }) => {
       </h2>
       {rank.map((player) => (
         <p className={classes.p}>
-          - {player.username}: Lvl-{player.level}
+          - {player.username}: lvl-{player.level}
         </p>
       ))}
     </article>
