@@ -13,6 +13,7 @@ const refetchRoute = require("./routes/refetch");
 const attackRoute = require("./routes/attack");
 const rankRoute = require("./routes/rank");
 const testRoute = require("./routes/test");
+const upHerosRoute = require("./routes/upheros");
 
 // GENERAL MIDDLEWARES
 app.use(morgan("dev"));
@@ -32,6 +33,7 @@ app.use("/", refetchRoute);
 app.use("/", attackRoute);
 app.use("/", rankRoute);
 app.use("/", testRoute);
+app.use("/", upHerosRoute);
 
 // DEV
 
