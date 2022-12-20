@@ -23,15 +23,14 @@ const Home = () => {
     setIsAuthenticated(false);
   };
 
-  // console.log(authenticatedUser.user.last_played);
-  // console.log(authenticatedUser.user.username);
-
   useEffect(() => {
-    upHeros(
-      authenticatedUser.user.last_played,
-      authenticatedUser.user.username
-    );
-  }, [authenticatedUser.user.units]);
+    if (authenticatedUser) {
+      upHeros(
+        authenticatedUser.user.last_played,
+        authenticatedUser.user.username
+      );
+    }
+  }, []);
 
   return (
     <HomeContainer>
