@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+import { GiBroadsword, GiFireAxe, GiWizardFace, GiCrown } from "react-icons/gi";
 
 export const UnitsMenuContainer = styled.div`
   position: absolute;
@@ -33,9 +34,11 @@ export const Unit = styled.div`
   width: 34rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2rem;
   div {
     width: 9rem;
+    position: relative;
   }
   div:nth-child(2) {
     width: 7rem;
@@ -88,4 +91,36 @@ export const Backdrop = styled.div`
   z-index: 9;
   left: 0;
   top: 0;
+`;
+
+export const UnitWarrior = styled(GiBroadsword)`
+  position: absolute;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  width: 2.4rem;
+  height: 2.4rem;
+`;
+
+export const UnitVicking = styled(GiFireAxe)`
+  position: absolute;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  width: 2.4rem;
+  height: 2.4rem;
+`;
+
+export const UnitMagician = styled(GiWizardFace)`
+  position: absolute;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  width: 2.4rem;
+  height: 2.4rem;
+`;
+
+export const UnitPrinc = styled(GiCrown)`
+  position: absolute;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  width: 2.4rem;
+  height: 2.4rem;
 `;
