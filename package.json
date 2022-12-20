@@ -1,0 +1,34 @@
+{
+  "name": "browsergame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js",
+    "build": "cd client && npm install && npm run build",
+    "dev": "nodemon server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Medic1111/browsergame.git"
+  },
+  "author": "Aryse <medictansy@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Medic1111/browsergame/issues"
+  },
+  "homepage": "https://github.com/Medic1111/browsergame#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.8.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
