@@ -38,3 +38,20 @@ export const isTokenExp = async (setIsAuthenticated, setAuthenticatedUser) => {
 
 export const clearLocalStorage = () =>
   localStorage.removeItem("userValidation");
+
+// UP HEROS COUNT
+
+export const upHeros = async (last_played, username) => {
+  const msDiff = Math.abs(
+    new Date(last_played) - new Date(new Date().toISOString())
+  );
+  const hrsNotCared = msDiff / (60 * 60 * 1000);
+
+  if (hrsNotCared > 1) {
+    return await axios
+      .patch(`/api/v1/${username}/upheros`)
+      .then((serverRes) => console.log(serverRes.data))
+      .catch((err) => console.log(err));
+  }
+  return;
+};
