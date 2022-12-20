@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../contexts/user-context";
 import Map from "../../components/map/map.component";
 import {
@@ -9,7 +9,7 @@ import {
   RankButton,
   UserIcon,
 } from "./home.styles";
-import { clearLocalStorage } from "../../utils/utils";
+import { clearLocalStorage, upHeros } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import Ranking from "../../components/Ranking/Ranking";
 
@@ -22,6 +22,16 @@ const Home = () => {
     clearLocalStorage();
     setIsAuthenticated(false);
   };
+
+  // console.log(authenticatedUser.user.last_played);
+  // console.log(authenticatedUser.user.username);
+
+  useEffect(() => {
+    upHeros(
+      authenticatedUser.user.last_played,
+      authenticatedUser.user.username
+    );
+  }, [authenticatedUser.user.units]);
 
   return (
     <HomeContainer>

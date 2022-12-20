@@ -33,7 +33,6 @@ const findAllUsers = async () => {
 const saveUser = async (user, res, message) => {
   let newUser = new User(user);
   await newUser.save((err, update) => {
-    console.log(user);
     if (err) {
       return res
         .status(500)
