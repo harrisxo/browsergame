@@ -22,3 +22,8 @@ span {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+@media (max-width: 798px) {
+  html {
+    font-size: 50%;
+  }
+}
