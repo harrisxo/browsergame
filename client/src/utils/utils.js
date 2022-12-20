@@ -3,7 +3,6 @@ import axios from "axios";
 export const storeToken = (serverRes) => {
   let token = serverRes.data.token;
   const myExp = new Date(new Date().getTime() + 161 * 60 * 60);
-  console.log(serverRes.data);
   localStorage.setItem(
     "userValidation",
     JSON.stringify({
@@ -46,7 +45,7 @@ export const upHeros = async (last_played, username) => {
     new Date(last_played) - new Date(new Date().toISOString())
   );
   const hrsNotCared = msDiff / (60 * 60 * 1000);
-
+  console.log(hrsNotCared);
   if (hrsNotCared > 1) {
     return await axios
       .patch(`/api/v1/${username}/upheros`)

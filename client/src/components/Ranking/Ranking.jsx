@@ -28,9 +28,9 @@ const Ranking = ({ setShowRanking }) => {
               x
             </span>
           </h2>
-          {rank.map((player) => (
-            <p className={classes.p}>
-              - {player.username}: Lvl-{player.level}
+          {rank.map((player, index) => (
+            <p className={classes.p} key={index}>
+              {`${index + 1}° ${player.username}: Lvl-${player.level}`}
             </p>
           ))}
         </article>
