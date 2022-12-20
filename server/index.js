@@ -39,7 +39,7 @@ app.use("/", upHerosRoute);
 
 // UNIVERSAL ROUTE
 app.get("*", (req, res) => {
-  res.send(path.resolve(__dirname, "../client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 module.exports = app;
