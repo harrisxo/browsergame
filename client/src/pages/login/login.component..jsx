@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
 import { storeToken } from "../../utils/utils";
-import { AuthContainer } from "./login.styles";
+import { AuthContainer, AuthForm, AuthInput } from "./login.styles";
 
 const Login = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
@@ -40,8 +40,8 @@ const Login = () => {
     <AuthContainer>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          <li>
+        <AuthForm>
+          <AuthInput>
             <label htmlFor="username"> Username </label>
             <input
               type="text"
@@ -52,8 +52,8 @@ const Login = () => {
                 onInputChange(event);
               }}
             />
-          </li>
-          <li>
+          </AuthInput>
+          <AuthInput>
             <label htmlFor="password"> Password </label>
             <input
               type="password"
@@ -64,9 +64,9 @@ const Login = () => {
                 onInputChange(event);
               }}
             />
-          </li>
+          </AuthInput>
           <input type="submit" value="Login" />
-        </ul>
+        </AuthForm>
       </form>
       <a href="/register">Create an account</a>
       {error}
