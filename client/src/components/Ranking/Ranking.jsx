@@ -16,19 +16,26 @@ const Ranking = ({ setShowRanking }) => {
   }, []);
 
   return (
-    <article className={classes.article}>
-      <h2 className={classes.h2}>
-        RANK{" "}
-        <span className={classes.close} onClick={() => setShowRanking(false)}>
-          x
-        </span>
-      </h2>
-      {rank.map((player) => (
-        <p className={classes.p}>
-          - {player.username}: Lvl-{player.level}
-        </p>
-      ))}
-    </article>
+    <>
+      {rank.length > 0 && (
+        <article className={classes.article}>
+          <h2 className={classes.h2}>
+            RANK{" "}
+            <span
+              className={classes.close}
+              onClick={() => setShowRanking(false)}
+            >
+              x
+            </span>
+          </h2>
+          {rank.map((player) => (
+            <p className={classes.p}>
+              - {player.username}: Lvl-{player.level}
+            </p>
+          ))}
+        </article>
+      )}
+    </>
   );
 };
 
