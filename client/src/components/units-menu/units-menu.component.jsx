@@ -15,7 +15,7 @@ import { Context } from "../../contexts/user-context";
 const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
   const userMgr = useContext(Context);
   const [selectedUnits, setSelectedUnits] = useState(units);
-
+  // add a select all button
   const heroTypeToComponent = {
     warrior: UnitWarrior,
     vicking: UnitVicking,

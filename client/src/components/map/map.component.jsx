@@ -10,15 +10,15 @@ const Map = () => {
 
   const handleSelectBlock = (blockID) => {
     setIsBlockSelected(true);
-    setBlockSelected(blockID);
+    setBlockSelected(userMgr.authenticatedUser.user.current_map[blockID - 1]);
   };
 
   const handleCastleType = (block, user) => {
     let castleType = 1;
     const userLevel = user.authenticatedUser.user.level;
-    if (block.hp >= userLevel * 66) {
+    if (block.hp >= userLevel * 400 * 0.66) {
       castleType = 3;
-    } else if (block.hp >= userLevel * 33) {
+    } else if (block.hp >= userLevel * 400 * 0.33) {
       castleType = 2;
     } else {
       castleType = 1;
@@ -43,10 +43,10 @@ const Map = () => {
               </MapBlock>
             );
           })}
-          {isBlockSelected && (
+          {isBlockSelected && !blockSelected.occupied && (
             <UnitsMenu
               units={userMgr.authenticatedUser.user.units}
-              blockSelected={blockSelected}
+              blockSelected={blockSelected.id}
               setIsBlockSelected={setIsBlockSelected}
             />
           )}

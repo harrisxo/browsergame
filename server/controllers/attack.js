@@ -6,7 +6,7 @@ const generateNewMap = (level) => {
     newMap.push({
       id: i,
       occupied: i === 1 ? true : false,
-      hp: (Math.floor(Math.random() * 100) + 1) * level,
+      hp: (Math.floor(Math.random() * 400) + 1) * level,
     });
   }
   return newMap;
@@ -15,7 +15,7 @@ const generateNewMap = (level) => {
 const attackControl = async (req, res) => {
   const { username, blockID } = req.params;
   const unitsReq = req.body.units;
-
+  console.log(blockID);
   const user = await findUser(username);
 
   if (!user) {
@@ -31,7 +31,6 @@ const attackControl = async (req, res) => {
   }, 0);
 
   const currentBlock = user.current_map[Number(blockID) - 1];
-
   const currentBlockHP = currentBlock.hp;
 
   if (totalAttack > currentBlockHP) {
