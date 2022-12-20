@@ -5,12 +5,23 @@ import {
   IncrementButton,
   DecrementButton,
   Backdrop,
+  UnitWarrior,
+  UnitVicking,
+  UnitMagician,
+  UnitPrinc,
 } from "./units-menu.styles";
 import axios from "axios";
 import { Context } from "../../contexts/user-context";
 const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
   const userMgr = useContext(Context);
   const [selectedUnits, setSelectedUnits] = useState(units);
+
+  const heroTypeToComponent = {
+    warrior: UnitWarrior,
+    vicking: UnitVicking,
+    magician: UnitMagician,
+    prince: UnitPrinc,
+  };
 
   const attackHandler = async (e) => {
     e.preventDefault();
@@ -67,9 +78,11 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
     <>
       <UnitsMenuContainer>
         {selectedUnits.map((unit, index) => {
+          const UnitComponent = heroTypeToComponent[unit.hero_type];
           return (
             <Unit key={index}>
               <div>
+                {<UnitComponent />}
                 <p>{unit.hero_type}</p>
               </div>
               <div>
