@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Context } from "./contexts/user-context";
 import { Routes, Route } from "react-router-dom";
-
+import { Navigate } from "react-router-dom";
 import Home from "./pages/home/home.component";
 import Login from "./pages/login/login.component.";
 import Register from "./pages/register/register.component";
@@ -39,6 +39,7 @@ const App = () => {
           </RequiredAuth>
         }
       />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
