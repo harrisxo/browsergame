@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { BiLogOut, BiTrophy, BiUser } from "react-icons/bi";
 
 export const HomeContainer = styled.div`
@@ -24,18 +24,19 @@ export const UserInfo = styled.div`
   }
 `;
 
-export const SignoutButton = styled(BiLogOut)`
+const buttonStyles = css`
   font-size: 2.8rem;
   &:hover {
     cursor: pointer;
   }
 `;
 
+export const SignoutButton = styled(BiLogOut)`
+  ${buttonStyles}
+`;
+
 export const RankButton = styled(BiTrophy)`
-  font-size: 2.8rem;
-  &:hover {
-    cursor: pointer;
-  }
+  ${buttonStyles}
 `;
 
 export const UserIcon = styled(BiUser)`

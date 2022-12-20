@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+import { GiBroadsword, GiFireAxe, GiWizardFace, GiCrown } from "react-icons/gi";
 
 export const UnitsMenuContainer = styled.div`
   position: absolute;
@@ -33,9 +34,11 @@ export const Unit = styled.div`
   width: 34rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2rem;
   div {
     width: 9rem;
+    position: relative;
   }
   div:nth-child(2) {
     width: 7rem;
@@ -66,18 +69,19 @@ export const Unit = styled.div`
   }
 `;
 
-export const IncrementButton = styled(AiOutlinePlusCircle)`
+const buttonStyles = css`
   font-size: 2rem;
   &:hover {
     cursor: pointer;
   }
 `;
 
+export const IncrementButton = styled(AiOutlinePlusCircle)`
+  ${buttonStyles}
+`;
+
 export const DecrementButton = styled(AiOutlineMinusCircle)`
-  font-size: 2rem;
-  &:hover {
-    cursor: pointer;
-  }
+  ${buttonStyles}
 `;
 
 export const Backdrop = styled.div`
@@ -88,4 +92,28 @@ export const Backdrop = styled.div`
   z-index: 9;
   left: 0;
   top: 0;
+`;
+
+const unitStyles = css`
+  position: absolute;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  width: 2.4rem;
+  height: 2.4rem;
+`;
+
+export const UnitWarrior = styled(GiBroadsword)`
+  ${unitStyles}
+`;
+
+export const UnitVicking = styled(GiFireAxe)`
+  ${unitStyles}
+`;
+
+export const UnitMagician = styled(GiWizardFace)`
+  ${unitStyles}
+`;
+
+export const UnitPrinc = styled(GiCrown)`
+  ${unitStyles}
 `;
