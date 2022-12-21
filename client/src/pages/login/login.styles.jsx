@@ -5,7 +5,11 @@ export const AuthContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   width: 50rem;
+  @media (max-width: 600px) {
+    width: 45rem;
+  }
   margin: 8rem auto;
   gap: 2rem;
   h1 {
