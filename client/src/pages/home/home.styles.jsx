@@ -7,6 +7,10 @@ export const HomeContainer = styled.div`
   width: 50rem;
   gap: 2rem;
   margin: 5rem auto;
+  overflow: hidden;
+  @media (max-width: 600px) {
+    width: 45rem;
+  }
 `;
 
 export const HomeNav = styled.div`
