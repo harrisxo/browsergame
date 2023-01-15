@@ -1,6 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Context } from "../../contexts/user-context";
+import { clearLocalStorage, upHeros } from "../../utils/utils";
+
 import Map from "../../components/map/map.component";
+import Ranking from "../../components/ranking/ranking.component";
+
 import {
   HomeContainer,
   HomeNav,
@@ -9,14 +15,10 @@ import {
   RankButton,
   UserIcon,
 } from "./home.styles";
-import { clearLocalStorage, upHeros } from "../../utils/utils";
-import { useNavigate } from "react-router-dom";
-import Ranking from "../../components/Ranking/Ranking";
 
 const Home = () => {
   const [showRanking, setShowRanking] = useState(false);
   const { setIsAuthenticated, authenticatedUser } = useContext(Context);
-  const navigate = useNavigate();
 
   const handleSignout = () => {
     clearLocalStorage();

@@ -1,4 +1,8 @@
 import { useState, useContext } from "react";
+import axios from "axios";
+
+import { Context } from "../../contexts/user-context";
+
 import {
   UnitsMenuContainer,
   Unit,
@@ -10,30 +14,32 @@ import {
   UnitMagician,
   UnitPrinc,
 } from "./units-menu.styles";
-import axios from "axios";
-import { Context } from "../../contexts/user-context";
+
+const heroTypeToComponent = {
+  warrior: UnitWarrior,
+  vicking: UnitVicking,
+  magician: UnitMagician,
+  prince: UnitPrinc,
+};
+
 const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
-  const userMgr = useContext(Context);
+  const {
+    authenticatedUser: { user },
+    setAuthenticatedUser,
+  } = useContext(Context);
+
   const [selectedUnits, setSelectedUnits] = useState(units);
+
   // add a select all button
-  const heroTypeToComponent = {
-    warrior: UnitWarrior,
-    vicking: UnitVicking,
-    magician: UnitMagician,
-    prince: UnitPrinc,
-  };
-
-  const attackHandler = async (e) => {
+  const handleAttack = async (e) => {
     e.preventDefault();
+    // custom hook
     await axios
-      .patch(
-        `/api/v1/users/${userMgr.authenticatedUser.user.username}/attack/${blockSelected}`,
-        { units: selectedUnits }
-      )
+      .patch(`/api/v1/users/${user.username}/attack/${blockSelected}`, {
+        units: selectedUnits,
+      })
       .then((serverRes) => {
-        console.log(serverRes.data);
-
-        userMgr.setAuthenticatedUser((prev) => {
+        setAuthenticatedUser((prev) => {
           return { ...prev, user: serverRes.data.data };
         });
       })
@@ -67,7 +73,7 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
     );
   };
 
-  const handleOnChange = (event, unitIndex, availableUnits) => {
+  const handleUnitsSelected = (event, unitIndex, availableUnits) => {
     const newValue = event.target.value;
     if (newValue === "" || parseInt(newValue, 10) >= 0) {
       handleSelectedUnitsChange(unitIndex, availableUnits, Number(newValue));
@@ -97,7 +103,9 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
                 <input
                   value={unit.battling}
                   type="text"
-                  onChange={(e) => handleOnChange(e, index, unit.available)}
+                  onChange={(e) =>
+                    handleUnitsSelected(e, index, unit.available)
+                  }
                 />
                 <IncrementButton
                   onClick={() =>
@@ -108,8 +116,8 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
             </Unit>
           );
         })}
-        <form onSubmit={attackHandler}>
-          <input type={"submit"} value="Attack" />
+        <form onSubmit={handleAttack}>
+          <input type="submit" value="Attack" />
         </form>
       </UnitsMenuContainer>
       <Backdrop onClick={() => setIsBlockSelected(false)} />

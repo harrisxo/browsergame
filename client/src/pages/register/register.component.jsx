@@ -1,14 +1,18 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
+
 import { Context } from "../../contexts/user-context";
 import { storeToken } from "../../utils/utils";
+
 import { AuthContainer, AuthForm, AuthInput } from "../login/login.styles";
+
 const Register = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
+
   const [user, setUser] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
 
-  const onInputChange = (event) => {
+  const handleFormInput = (event) => {
     const { name, value } = event.target;
     setUser((previousValue) => {
       return {
@@ -26,7 +30,6 @@ const Register = () => {
         setAuthenticatedUser(res.data);
         storeToken(res);
         setIsAuthenticated(true);
-        // localStorage.setItem("JWT Token", res.data.token);
       })
       .catch(({ response }) => {
         setError(`Error ${response.status}: ${response.data.message}`);
@@ -45,9 +48,7 @@ const Register = () => {
               id="username"
               value={user.username}
               name="username"
-              onChange={(event) => {
-                onInputChange(event);
-              }}
+              onChange={handleFormInput}
             />
           </AuthInput>
           <AuthInput>
@@ -57,9 +58,7 @@ const Register = () => {
               id="email"
               value={user.email}
               name="email"
-              onChange={(event) => {
-                onInputChange(event);
-              }}
+              onChange={handleFormInput}
             />
           </AuthInput>
           <AuthInput>
@@ -69,9 +68,7 @@ const Register = () => {
               id="password"
               value={user.password}
               name="password"
-              onChange={(event) => {
-                onInputChange(event);
-              }}
+              onChange={handleFormInput}
             />
           </AuthInput>
           <input type="submit" value="Register" />
