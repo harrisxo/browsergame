@@ -1,15 +1,18 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
+
 import { Context } from "../../contexts/user-context";
 import { storeToken } from "../../utils/utils";
+
 import { AuthContainer, AuthForm, AuthInput } from "./login.styles";
 
 const Login = () => {
   const { setIsAuthenticated, setAuthenticatedUser } = useContext(Context);
+
   const [user, setUser] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
-  const onInputChange = (event) => {
+  const handleFormInput = (event) => {
     const { name, value } = event.target;
     setUser((previousValue) => {
       return {
@@ -27,9 +30,6 @@ const Login = () => {
         setAuthenticatedUser(res.data);
         storeToken(res);
         setIsAuthenticated(true);
-        // localStorage.setItem("JWT Token", res.data.token);
-        console.log("User authenticated!");
-        console.log(res.data);
       })
       .catch(({ response }) => {
         setError(`Error ${response.status}: ${response.data.message}`);
@@ -48,9 +48,7 @@ const Login = () => {
               id="username"
               value={user.username}
               name="username"
-              onChange={(event) => {
-                onInputChange(event);
-              }}
+              onChange={handleFormInput}
             />
           </AuthInput>
           <AuthInput>
@@ -60,9 +58,7 @@ const Login = () => {
               id="password"
               value={user.password}
               name="password"
-              onChange={(event) => {
-                onInputChange(event);
-              }}
+              onChange={handleFormInput}
             />
           </AuthInput>
           <input type="submit" value="Login" />
