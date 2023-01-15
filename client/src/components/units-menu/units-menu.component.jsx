@@ -5,6 +5,7 @@ import { Context } from "../../contexts/user-context";
 
 import {
   UnitsMenuContainer,
+  ButtonContainer,
   Unit,
   IncrementButton,
   DecrementButton,
@@ -44,6 +45,14 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
         });
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleSelectAll = () => {
+    const allUnitsSelected = selectedUnits.map((unit) => ({
+      ...unit,
+      battling: unit.available,
+    }));
+    setSelectedUnits(allUnitsSelected);
   };
 
   const handleSelectedUnitsChange = (
@@ -116,9 +125,10 @@ const UnitsMenu = ({ units, blockSelected, setIsBlockSelected }) => {
             </Unit>
           );
         })}
-        <form onSubmit={handleAttack}>
-          <input type="submit" value="Attack" />
-        </form>
+        <ButtonContainer>
+          <button onClick={handleAttack}>Attack</button>
+          <button onClick={handleSelectAll}>Select all</button>
+        </ButtonContainer>
       </UnitsMenuContainer>
       <Backdrop onClick={() => setIsBlockSelected(false)} />
     </>

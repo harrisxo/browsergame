@@ -14,8 +14,12 @@ export const UnitsMenuContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   z-index: 99;
+`;
 
-  input[type="submit"] {
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  button {
     font-size: 1.8rem;
     background-color: #fafafa;
     outline: none;
@@ -29,7 +33,6 @@ export const UnitsMenuContainer = styled.div`
     }
   }
 `;
-
 export const Unit = styled.div`
   width: 34rem;
   display: flex;
