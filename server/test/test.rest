@@ -109,4 +109,4 @@ Content-Type: application/json
 
 # UP HEROS
 
-PATCH http://localhost:3002/api/v1/medic1111/upheros
+PATCH http://localhost:3002/api/v1/arua/upheros

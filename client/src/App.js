@@ -2,7 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { Context } from "./contexts/user-context";
+
 import { isTokenExp } from "./utils/utils";
+
+import { Routes, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import Home from "./pages/home/home.component";
 import Login from "./pages/login/login.component.";
@@ -40,6 +44,7 @@ const App = () => {
           </RequiredAuth>
         }
       />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
